@@ -1,0 +1,110 @@
+import UIKit
+
+class Data {
+    var dia: String
+    var mes: String
+    var ano: String
+    
+    init(dia: String, mes: String, ano: String) {
+        self.dia = dia
+        self.mes = mes
+        self.ano = ano
+    }
+}
+
+
+class PacienteMulher {
+    
+    var nome: String
+    var dataNascimento: Data
+    var semanasEmGestacao: Int
+    var temperatura: Double
+    
+   init(nome: String, dataNascimento: Data, semanasEmGestacao: Int, temperatura: Double) {
+        self.nome = nome
+        self.dataNascimento = dataNascimento
+        self.semanasEmGestacao = semanasEmGestacao
+        self.temperatura = temperatura
+    }
+    
+    func getSemanasDeGestacao() -> Int {
+        return self.semanasEmGestacao
+    }
+    
+    func getTemperatura() -> Double {
+        return self.temperatura
+    }
+    // criar uma funçao que retorna informações gerais da pesssoa
+}
+
+
+
+var lista: [PacienteMulher] = []
+
+func adicionarPaciente(paciente: PacienteMulher){
+    lista.append(paciente)
+    print("Paciente registada")
+}
+
+func totalDeSemanasDeGestacao(str: String) -> Int {
+     var gestacao: Int = 0
+     for var i in 0..<lista.count {
+        if(lista[i].nome == str){
+            gestacao = lista[i].getSemanasDeGestacao()
+        }
+    }
+    return gestacao
+}
+
+
+
+func mostrarTodasPacientes(){
+    for paciente in lista {
+        print(paciente.nome)
+    }
+}
+
+func quantidadeDePacientesComTemperaturaNormal() -> Int {
+    var contador: Int = 0
+    for paciente in lista {
+        if(paciente.getTemperatura()>=35.4 && paciente.getTemperatura()<=37.2){
+            contador = contador + 1
+        }
+    }
+    return contador
+}
+
+func pacienteComMaiorTemperaturaNormal() -> String {
+    var temperatura: Double = lista[0].getTemperatura()
+    var str: String = lista[0].nome
+    for paciente in lista {
+        if(paciente.getTemperatura() > temperatura){
+            str = paciente.nome
+        }
+    }
+    return str
+}
+
+
+var d1 = Data(dia: "26", mes: "03", ano: "2021")
+var d2 = Data(dia: "25", mes: "03", ano: "2021")
+var d3 = Data(dia: "24", mes: "03", ano: "2021")
+var d4 = Data(dia: "25", mes: "03", ano: "2021")
+
+
+var p1 = PacienteMulher(nome: "Ana Teodoro 1", dataNascimento: d1, semanasEmGestacao: 5, temperatura: 35.6)
+var p2 = PacienteMulher(nome: "Ana Teodoro 2", dataNascimento: d2, semanasEmGestacao: 5, temperatura: 37.6)
+var p3 = PacienteMulher(nome: "Ana Teodoro 3", dataNascimento: d3, semanasEmGestacao: 5, temperatura: 36.6)
+var p4 = PacienteMulher(nome: "Ana Teodoro 4", dataNascimento: d4, semanasEmGestacao: 5, temperatura: 34.3)
+
+
+adicionarPaciente(paciente: p1)
+adicionarPaciente(paciente: p2)
+adicionarPaciente(paciente: p3)
+adicionarPaciente(paciente: p4)
+
+
+mostrarTodasPacientes()
+print(pacienteComMaiorTemperaturaNormal())
+print(quantidadeDePacientesComTemperaturaNormal())
+print(totalDeSemanasDeGestacao(str: "Ana Teodoro 3"))

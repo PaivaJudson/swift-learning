@@ -7,7 +7,6 @@ func helloCalories(){
 }
 
 
-
 func add(name, calories){
     print("adding" + String(name, " e " + calories)
 }
